@@ -4,7 +4,7 @@ import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.Objects;
 
-public class AccountHolder {
+public class AccountHolder implements Comparable<AccountHolder> {
 	// Variables of Class
     private String firstName;
     private String middleName;
@@ -81,7 +81,6 @@ public class AccountHolder {
         double tSaving = 0;
         tChecking = this.getCheckingBalance();
         tSaving = this.getSavingsBalance();
-        tBalance = this.getCheckingBalance();
         double testAdd = checkingB;
         tBalance = tChecking + tSaving + testAdd;
         if (tBalance > 250000){
@@ -136,7 +135,6 @@ public class AccountHolder {
         double tSaving = 0;
         tChecking = this.getCheckingBalance();
         tSaving = this.getSavingsBalance();
-        tBalance = this.getCheckingBalance();
         double testAdd = openingBalance;
         tBalance = tChecking + tSaving + testAdd;
         if (tBalance > 250000){
@@ -156,7 +154,6 @@ public class AccountHolder {
         double tSaving = 0;
         tChecking = this.getCheckingBalance();
         tSaving = this.getSavingsBalance();
-        tBalance = this.getCheckingBalance();
         double testAdd = savingsAccountX.getBalance();
         tBalance = tChecking + tSaving + testAdd;
         if (tBalance > 250000){
@@ -194,7 +191,7 @@ public class AccountHolder {
         return cdAccount[cdAccountNum - 1];
     }
 
-    public CDAccount addCDAccount(CDAccount cdAccount){
+    public CDAccount addCDAccount(CDAccount cdAccount) {
         if(cdAccount.equals(null)){
             System.out.println("Unable to Complete Action, Null CD Offer.");
             return null;
@@ -233,6 +230,14 @@ public class AccountHolder {
         DecimalFormat format = new DecimalFormat("##.00");
         return "Name: " + this.firstName + " " + this.middleName + " " + this.lastName + "\n"
                 + "SSN: " + this.ssn + "\n";
+    }
+    
+    @Override
+    public int compareTo(AccountHolder otherAccount) {
+    	if(this.getCombinedBalance() > otherAccount.getCombinedBalance()) {
+    		return 1;
+    	} else
+    		return -1;
     }
 
     /*

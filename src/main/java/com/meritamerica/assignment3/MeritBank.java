@@ -1,5 +1,7 @@
 package com.meritamerica.assignment3;
 
+import java.util.Arrays;
+
 /*
  * @author Reuben Pena
  * @date 3/5/2020
@@ -106,6 +108,11 @@ public class MeritBank {
         	}
             return countA + 1;
     	}
+    }
+    
+    static AccountHolder[] sortAccountHolders() {
+    	Arrays.sort(accountHolder, 0, accountHolderNum);
+    	return accountHolder;
     }
 
     /*
