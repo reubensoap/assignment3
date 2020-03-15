@@ -1,7 +1,10 @@
 package com.meritamerica.assignment3;
 
 import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Objects;
 
 public class AccountHolder implements Comparable<AccountHolder> {
@@ -10,12 +13,9 @@ public class AccountHolder implements Comparable<AccountHolder> {
     private String middleName;
     private String lastName;
     private String ssn;
-    public CheckingAccount checking[] = new CheckingAccount[50];
-    public SavingsAccount savings[] = new SavingsAccount[50];
-    public CDAccount cdAccount[] = new CDAccount[50];
-    private int checkingAccountNum = 0;
-    private int savingsAccountNum = 0;
-    private int cdAccountNum = 0;
+    public CheckingAccount checking[] = new CheckingAccount[1];
+    public SavingsAccount savings[] = new SavingsAccount[1];
+    public CDAccount cdAccount[] = new CDAccount[1];
 
 
     // Constructors
@@ -85,12 +85,16 @@ public class AccountHolder implements Comparable<AccountHolder> {
         tBalance = tChecking + tSaving + testAdd;
         if (tBalance > 250000){
             System.out.println("Unable to Complete Action, Accounts Exceed Balance Limit.");
-            return checking[checkingAccountNum];
+            return checking[checking.length - 1];
         } else {
-            checking[checkingAccountNum] = new CheckingAccount(checkingB);
-            checking[checkingAccountNum].setAccountNumber(MeritBank.getNextAccountNumber());
-            checkingAccountNum++;
-            return checking[checkingAccountNum - 1];
+            checking[checking.length - 1] = new CheckingAccount(checkingB);
+            checking[checking.length - 1].setAccountNumber(MeritBank.getNextAccountNumber());
+            CheckingAccount arrayTemp[] = new CheckingAccount[checking.length + 1];
+            for(int x = 0; x < checking.length; x++) {
+            	arrayTemp[x] = checking[x];
+            }
+            checking = arrayTemp;
+            return checking[checking.length - 2];
         }
     }
 
@@ -104,12 +108,16 @@ public class AccountHolder implements Comparable<AccountHolder> {
         tBalance = tChecking + tSaving + testAdd;
         if (tBalance > 250000){
             System.out.println("Unable to Complete Action, Accounts Exceed Balance Limit.");
-            return checking[checkingAccountNum];
+            return checking[checking.length - 1];
         } else {
-            checking[checkingAccountNum] = checkingAccountX;
-            checking[checkingAccountNum].setAccountNumber(MeritBank.getNextAccountNumber());
-            checkingAccountNum++;
-            return checking[checkingAccountNum - 1];
+            checking[checking.length - 1] = checkingAccountX;
+            checking[checking.length - 1].setAccountNumber(MeritBank.getNextAccountNumber());
+            CheckingAccount arrayTemp[] = new CheckingAccount[checking.length + 1];
+            for(int x = 0; x < checking.length; x++) {
+            	arrayTemp[x] = checking[x];
+            }
+            checking = arrayTemp;
+            return checking[checking.length - 2];
         }
     }
 
@@ -118,12 +126,12 @@ public class AccountHolder implements Comparable<AccountHolder> {
     }
 
     public int getNumberOfCheckingAccounts(){
-        return this.checkingAccountNum;
+        return this.checking.length - 1;
     }
 
     public double getCheckingBalance(){
         double tBalance = 0;
-        for(int x = 0; x < checkingAccountNum; x++){
+        for(int x = 0; x < checking.length - 1; x++){
             tBalance += checking[x].getBalance();
         }
         return tBalance;
@@ -139,12 +147,16 @@ public class AccountHolder implements Comparable<AccountHolder> {
         tBalance = tChecking + tSaving + testAdd;
         if (tBalance > 250000){
             System.out.println("Unable to Complete Action, Accounts Exceed Balance Limit.");
-            return savings[savingsAccountNum];
+            return savings[savings.length - 1];
         } else {
-            savings[savingsAccountNum] = new SavingsAccount(openingBalance);
-            savings[savingsAccountNum].setAccountNumber(MeritBank.getNextAccountNumber());
-            savingsAccountNum++;
-            return savings[savingsAccountNum - 1];
+            savings[savings.length - 1] = new SavingsAccount(openingBalance);
+            savings[savings.length - 1].setAccountNumber(MeritBank.getNextAccountNumber());
+            SavingsAccount arrayTemp[] = new SavingsAccount[savings.length + 1];
+            for(int x = 0; x < savings.length; x++) {
+            	arrayTemp[x] = savings[x];
+            }
+            savings = arrayTemp;
+            return savings[savings.length - 2];
         }
     }
 
@@ -158,13 +170,16 @@ public class AccountHolder implements Comparable<AccountHolder> {
         tBalance = tChecking + tSaving + testAdd;
         if (tBalance > 250000){
             System.out.println("Unable to Complete Action, Accounts Exceed Balance Limit.");
-            return savings[savingsAccountNum];
+            return savings[savings.length - 1];
         } else {
-            savings[savingsAccountNum] = savingsAccountX;
-            savings[savingsAccountNum].setAccountNumber(MeritBank.getNextAccountNumber());
-            savingsAccountNum++;
-            
-            return savings[savingsAccountNum - 1];
+        	savings[savings.length - 1] = savingsAccountX;
+        	savings[savings.length - 1].setAccountNumber(MeritBank.getNextAccountNumber());
+            SavingsAccount arrayTemp[] = new SavingsAccount[savings.length + 1];
+            for(int x = 0; x < savings.length; x++) {
+            	arrayTemp[x] = savings[x];
+            }
+            savings = arrayTemp;
+            return savings[savings.length - 2];
         }
     }
 
@@ -173,33 +188,41 @@ public class AccountHolder implements Comparable<AccountHolder> {
     }
 
     public int getNumberOfSavingsAccounts(){
-        return this.savingsAccountNum;
+        return this.savings.length - 1;
     }
 
     public double getSavingsBalance(){
         double tBalance = 0;
-        for(int x = 0; x < savingsAccountNum; x++){
+        for(int x = 0; x < savings.length - 1; x++){
             tBalance += savings[x].getBalance();
         }
         return tBalance;
     }
 
     public CDAccount addCDAccount(CDOffering offering, double openingBalance){
-        cdAccount[cdAccountNum] = new CDAccount(offering, openingBalance);
-        cdAccount[cdAccountNum].setAccountNumber(MeritBank.getNextAccountNumber());
-        cdAccountNum++;
-        return cdAccount[cdAccountNum - 1];
+        cdAccount[cdAccount.length - 1] = new CDAccount(offering, openingBalance);
+        cdAccount[cdAccount.length - 1].setAccountNumber(MeritBank.getNextAccountNumber());
+        CDAccount arrayTemp[] = new CDAccount[cdAccount.length + 1];
+        for(int x = 0; x < cdAccount.length; x++) {
+        	arrayTemp[x] = cdAccount[x];
+        }
+        cdAccount = arrayTemp;
+        return cdAccount[cdAccount.length - 2];
     }
 
-    public CDAccount addCDAccount(CDAccount cdAccount) {
+    public CDAccount addCDAccount(CDAccount cdAccountX) {
         if(cdAccount.equals(null)){
             System.out.println("Unable to Complete Action, Null CD Offer.");
             return null;
         }
-        this.cdAccount[cdAccountNum] = cdAccount;
-        this.cdAccount[cdAccountNum].setAccountNumber(MeritBank.getNextAccountNumber());
-        cdAccountNum++;
-        return this.cdAccount[cdAccountNum - 1];
+        cdAccount[cdAccount.length - 1] = cdAccountX;
+        cdAccount[cdAccount.length - 1].setAccountNumber(MeritBank.getNextAccountNumber());
+        CDAccount arrayTemp[] = new CDAccount[cdAccount.length + 1];
+        for(int x = 0; x < cdAccount.length; x++) {
+        	arrayTemp[x] = cdAccount[x];
+        }
+        cdAccount = arrayTemp;
+        return this.cdAccount[cdAccount.length - 2];
     }
 
     public CDAccount[] getCDAccounts(){
@@ -207,12 +230,12 @@ public class AccountHolder implements Comparable<AccountHolder> {
     }
 
     public int getNumberOfCDAccounts(){
-        return this.cdAccountNum;
+        return this.cdAccount.length - 1;
     }
 
     public double getCDBalance(){
         double tBalance = 0;
-        for(int x = 0; x < cdAccountNum; x++){
+        for(int x = 0; x < this.cdAccount.length - 1; x++) {
             tBalance += cdAccount[x].getBalance();
         }
         return tBalance;
@@ -239,36 +262,25 @@ public class AccountHolder implements Comparable<AccountHolder> {
     	} else
     		return -1;
     }
+    
+    public String writeToString() {
+    	return this.lastName + "," + this.middleName + "," + this.firstName + ","
+    			+ this.ssn;
+    }
+    
+    static AccountHolder readFromString(String accountData) {
+    	String array1[] = accountData.split(",");
+    	try {
+    	AccountHolder ah = new AccountHolder(array1[0], array1[1]
+    			, array1[2], array1[3]);
+    	return ah;
+    	} catch (Exception e) {
+    		return null;
+    	}
+    }
 
     /*
     * Was going to override both methods however decided not to edit
     * from default.
     * */
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        AccountHolder that = (AccountHolder) o;
-        return checkingAccountNum == that.checkingAccountNum &&
-                savingsAccountNum == that.savingsAccountNum &&
-                cdAccountNum == that.cdAccountNum &&
-                Objects.equals(firstName, that.firstName) &&
-                Objects.equals(middleName, that.middleName) &&
-                Objects.equals(lastName, that.lastName) &&
-                Objects.equals(ssn, that.ssn) &&
-                Arrays.equals(checking, that.checking) &&
-                Arrays.equals(savings, that.savings) &&
-                Arrays.equals(cdAccount, that.cdAccount);
-    }
-
-    @Override
-    public int hashCode() {
-
-        int result = Objects.hash(firstName, middleName, lastName, ssn, checkingAccountNum, savingsAccountNum, cdAccountNum);
-        result = 31 * result + Arrays.hashCode(checking);
-        result = 31 * result + Arrays.hashCode(savings);
-        result = 31 * result + Arrays.hashCode(cdAccount);
-        return result;
-    }
 }

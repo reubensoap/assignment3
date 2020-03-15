@@ -1,6 +1,9 @@
 package com.meritamerica.assignment3;
 
 import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class BankAccount {
 	// Variables
@@ -92,5 +95,28 @@ public class BankAccount {
         return "\nChecking Account Balance: $" + format.format(this.getBalance()) + "\n"
                 + "Checking Account Interest Rate: " + this.getInterestRate() + "\n"
                 + "Checking Account Balance in 3 years: $" + format.format(this.futureValue(3));
+    }
+	
+	static BankAccount readFromString(String accountData) {
+		SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
+    	try {
+    	String array1[] = accountData.split(",");
+    	int fAccount = Integer.parseInt(array1[0]);
+    	double fBalance = Double.parseDouble(array1[1]);
+    	double fInterest = Double.parseDouble(array1[2]);
+    	Date fDate = dateFormatter.parse(array1[3]);
+    	
+    	BankAccount banks = new BankAccount(fAccount, fBalance
+    			, fInterest, fDate);
+    	return banks;
+    	} catch (ParseException e) {
+    		return null;
+    	}
+    }
+	
+	public String writeToString() {
+		SimpleDateFormat dateFormatter = new SimpleDateFormat("MM/dd/yyyy");
+    	return this.accountNumber + "," + this.balance + "," + this.interestRate
+    			+ "," + dateFormatter.format(this.accountOpenedOn);
     }
 }
