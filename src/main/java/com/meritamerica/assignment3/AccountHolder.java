@@ -88,7 +88,6 @@ public class AccountHolder implements Comparable<AccountHolder> {
             return checking[checking.length - 1];
         } else {
             checking[checking.length - 1] = new CheckingAccount(checkingB);
-            checking[checking.length - 1].setAccountNumber(MeritBank.getNextAccountNumber());
             CheckingAccount arrayTemp[] = new CheckingAccount[checking.length + 1];
             for(int x = 0; x < checking.length; x++) {
             	arrayTemp[x] = checking[x];
@@ -111,7 +110,6 @@ public class AccountHolder implements Comparable<AccountHolder> {
             return checking[checking.length - 1];
         } else {
             checking[checking.length - 1] = checkingAccountX;
-            checking[checking.length - 1].setAccountNumber(MeritBank.getNextAccountNumber());
             CheckingAccount arrayTemp[] = new CheckingAccount[checking.length + 1];
             for(int x = 0; x < checking.length; x++) {
             	arrayTemp[x] = checking[x];
@@ -150,7 +148,6 @@ public class AccountHolder implements Comparable<AccountHolder> {
             return savings[savings.length - 1];
         } else {
             savings[savings.length - 1] = new SavingsAccount(openingBalance);
-            savings[savings.length - 1].setAccountNumber(MeritBank.getNextAccountNumber());
             SavingsAccount arrayTemp[] = new SavingsAccount[savings.length + 1];
             for(int x = 0; x < savings.length; x++) {
             	arrayTemp[x] = savings[x];
@@ -173,7 +170,6 @@ public class AccountHolder implements Comparable<AccountHolder> {
             return savings[savings.length - 1];
         } else {
         	savings[savings.length - 1] = savingsAccountX;
-        	savings[savings.length - 1].setAccountNumber(MeritBank.getNextAccountNumber());
             SavingsAccount arrayTemp[] = new SavingsAccount[savings.length + 1];
             for(int x = 0; x < savings.length; x++) {
             	arrayTemp[x] = savings[x];
@@ -201,7 +197,6 @@ public class AccountHolder implements Comparable<AccountHolder> {
 
     public CDAccount addCDAccount(CDOffering offering, double openingBalance){
         cdAccount[cdAccount.length - 1] = new CDAccount(offering, openingBalance);
-        cdAccount[cdAccount.length - 1].setAccountNumber(MeritBank.getNextAccountNumber());
         CDAccount arrayTemp[] = new CDAccount[cdAccount.length + 1];
         for(int x = 0; x < cdAccount.length; x++) {
         	arrayTemp[x] = cdAccount[x];
@@ -216,7 +211,6 @@ public class AccountHolder implements Comparable<AccountHolder> {
             return null;
         }
         cdAccount[cdAccount.length - 1] = cdAccountX;
-        cdAccount[cdAccount.length - 1].setAccountNumber(MeritBank.getNextAccountNumber());
         CDAccount arrayTemp[] = new CDAccount[cdAccount.length + 1];
         for(int x = 0; x < cdAccount.length; x++) {
         	arrayTemp[x] = cdAccount[x];
@@ -271,8 +265,8 @@ public class AccountHolder implements Comparable<AccountHolder> {
     static AccountHolder readFromString(String accountData) {
     	String array1[] = accountData.split(",");
     	try {
-    	AccountHolder ah = new AccountHolder(array1[0], array1[1]
-    			, array1[2], array1[3]);
+    	AccountHolder ah = new AccountHolder(array1[2], array1[1]
+    			, array1[0], array1[3]);
     	return ah;
     	} catch (Exception e) {
     		return null;

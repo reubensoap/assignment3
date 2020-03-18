@@ -1,6 +1,7 @@
 package com.meritamerica.assignment3;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -100,15 +101,9 @@ public class MeritBank {
     }
 
     static long getNextAccountNumber(){
-    	/*int countA = 0;
-    	for(int x = 0; x < accountHolder.length - 1; x++) {
-        	countA += accountHolder[x].getNumberOfCheckingAccounts();
-        	countA += accountHolder[x].getNumberOfSavingsAccounts();
-        	countA += accountHolder[x].getNumberOfCDAccounts();
-        }
-        return countA + 1;
-        */
-    	return MeritBank.lastAccountNumber;
+    	long newNum = MeritBank.lastAccountNumber;
+    	MeritBank.lastAccountNumber++;
+    	return newNum;
     }
     
     static void setNextAccountNumber(long nextAccountNumber) {
@@ -183,7 +178,7 @@ public class MeritBank {
 		}
     }
     
-    static String writeToFile() {
+    static String writeToString() {
     	String offeringList = "";
     	for(int x = 0; x < cdOfferingHolder.length; x++) {
     		offeringList += cdOfferingHolder[x].writeToString() + "\n";
@@ -217,13 +212,89 @@ public class MeritBank {
     			accountList += arrayCD[y].writeToString() + "\n";
     		}
     	}
-    	String sb = MeritBank.getNextAccountNumber() + "\n"
+    	String sb = MeritBank.lastAccountNumber + "\n"
     			+ cdOfferingHolder.length + "\n"
     			+ offeringList
     			+ accountList;
     			
     	
     	return sb;
+    }
+    
+    static void writeToFile() {
+    	try {
+    	FileWriter writer = new FileWriter("src/test/testMeritBank_Reuben.txt", false);
+    	BufferedWriter buffered = new BufferedWriter(writer);
+    	
+    	String nextNumString = Long.toString(MeritBank.lastAccountNumber);
+    	//First Line - next account num
+    	buffered.write(nextNumString);
+    	buffered.newLine();
+    	// second line - num of CDOffers in Merit Array
+    	String numOfCDO = Integer.toString(MeritBank.cdOfferingHolder.length);
+    	buffered.write(numOfCDO);
+    	buffered.newLine();
+    	
+    	for(int x = 0; x < cdOfferingHolder.length; x++) {
+    		// lines for CDOfferings
+    		String cdoLine;
+    		buffered.write(cdOfferingHolder[x].writeToString());
+    		buffered.newLine();
+    	}
+    	
+    	// line for account holder count
+    	String numOfAccount = Integer.toString(accountHolder.length - 1);
+    	buffered.write(numOfAccount);
+    	buffered.newLine();
+    	// for loop to get information out of each account Holder
+    	for (int x = 0; x < accountHolder.length - 1; x++) {
+    		// detailed info on the account Holder
+    		buffered.write(accountHolder[x].writeToString());
+    		buffered.newLine();
+    		
+    		CheckingAccount arrayCheck[] = accountHolder[x].getCheckingAccounts();
+    		
+    		// get num of checking accounts in account holder
+    		buffered.write(Integer.toString(accountHolder[x].getNumberOfCheckingAccounts()));
+    		buffered.newLine();
+    		
+    		// loop to get details on each checking account
+    		for(int y = 0; y < arrayCheck.length - 1; y++) {
+    			String detailsCheck;
+    			buffered.write(arrayCheck[y].writeToString());
+    			buffered.newLine();
+    		}
+    		
+    		SavingsAccount arraySave[] = accountHolder[x].getSavingsAccounts();
+    		
+    		// get num of savings accounts in account holder
+    		buffered.write(Integer.toString(accountHolder[x].getNumberOfSavingsAccounts()));
+    		buffered.newLine();
+    		
+    		// loop to get details on each savings account
+    		for(int y = 0; y < arraySave.length - 1; y++) {
+    			String detailsSavings;
+    			buffered.write(arraySave[y].writeToString());
+    			buffered.newLine();
+    		}
+    		
+    		CDAccount arrayCD[] = accountHolder[x].getCDAccounts();
+    		
+    		// get num of CD accounts in account holder
+    		buffered.write(Integer.toString(accountHolder[x].getNumberOfCDAccounts()));
+    		buffered.newLine();
+    		
+    		// loop to get details on each CD account
+    		for(int y = 0; y < arrayCD.length - 1; y++) {
+    			String detailsCD;
+    			buffered.write(arrayCD[y].writeToString());
+    			buffered.newLine();
+    		}
+    	}
+    	buffered.close();
+    	} catch (IOException e) {
+    		e.printStackTrace();
+    	}
     }
 
     /*

@@ -43,24 +43,6 @@ public class CheckingAccount extends BankAccount{
                 + "Checking Account Balance in 3 years: $" + format.format(this.futureValue(3));
     }
     
-    /*
-    
-    static CheckingAccount readFromString(String accountData) throws ParseException {
-			SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
-	    	
-	    	String array1[] = accountData.split(",");
-	    	int fAccount = Integer.parseInt(array1[0]);
-	    	double fBalance = Double.parseDouble(array1[1]);
-	    	double fInterest = Double.parseDouble(array1[2]);
-	    	Date fDate = dateFormatter.parse(array1[3]);
-	    	
-	    	CheckingAccount checking = new CheckingAccount(fAccount, fBalance
-	    			, fInterest, fDate);
-	    	return checking;
-	}
-	
-	*/
-    
     static CheckingAccount readFromString(String accountData) {
     	try {
 		SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");

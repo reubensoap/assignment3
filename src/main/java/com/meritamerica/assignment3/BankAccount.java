@@ -17,6 +17,7 @@ public class BankAccount {
 		this.balance = balance;
 		this.interestRate = interestRate;
 		this.accountOpenedOn = new java.util.Date();
+		this.accountNumber = MeritBank.getNextAccountNumber();
 	}
 	
 	public BankAccount(double balance, double interestRate
@@ -24,6 +25,7 @@ public class BankAccount {
 		this.balance = balance;
 		this.interestRate = interestRate;
 		this.accountOpenedOn = accountOpenedOn;
+		this.accountNumber = MeritBank.getNextAccountNumber();
 	}
 	
 	public BankAccount(long accountNumber, double balance, double interestRate
